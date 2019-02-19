@@ -1,5 +1,6 @@
 package com.neo.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -94,5 +95,14 @@ public class ShiroConfig {
 		r.setExceptionAttribute("ex");     // Default is "exception"
 		//r.setWarnLogCategory("example.MvcLogger");     // No default
 		return r;
+	}
+
+	/**
+	 * 开启shiro方言用来支持shiro标签，需要引入扩展jar包，
+	 * @return
+	 */
+	@Bean
+	public ShiroDialect shiroDialect() {
+		return new ShiroDialect();
 	}
 }

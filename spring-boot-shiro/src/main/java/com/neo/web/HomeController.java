@@ -1,7 +1,11 @@
 package com.neo.web;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -40,13 +44,30 @@ public class HomeController {
         }
         map.put("msg", msg);
         // 此方法不处理登录成功,由shiro进行处理
-        return "/login";
+        return "login";
     }
 
     @RequestMapping("/403")
     public String unauthorizedRole(){
         System.out.println("------没有权限-------");
         return "403";
+    }
+
+    @RequestMapping("/myLogin")
+    public String myLogin(String username,String password){
+        //Example using most common scenario of username/password pair:
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+
+        //"Remember Me" built-in:
+        token.setRememberMe(true);
+        Subject currentUser = SecurityUtils.getSubject();
+
+        try {
+            currentUser.login(token);
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

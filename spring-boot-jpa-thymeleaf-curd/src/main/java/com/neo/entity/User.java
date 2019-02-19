@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 public class User {
@@ -12,8 +13,8 @@ public class User {
     private long id;
     @Column(nullable = false, unique = true)
     private String userName;
-    @Column(nullable = false)
-    private String password;
+    @Column(nullable = true)
+    private String passWord;
     @Column(nullable = false)
     private int age;
 
@@ -35,12 +36,12 @@ public class User {
         return this;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPassWord() {
+        return passWord;
     }
 
-    public User setPassword(String password) {
-        this.password = password;
+    public User setPassWord(String passWord) {
+        this.passWord = passWord;
         return this;
     }
 
